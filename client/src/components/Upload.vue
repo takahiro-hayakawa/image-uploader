@@ -6,9 +6,10 @@
 
 <script>
 import * as axios from "axios";
+import STATUS from '../constants/upload_status';
 
 export default {
-  name: 'ImageUploader',
+  name: 'Upload',
   data() {
     return {
       files: []
@@ -16,6 +17,8 @@ export default {
   },
   methods: {
     dropFile(event) {
+      this.$emit("emitUp", STATUS.UPLOADING)
+
       this.files = [...event.dataTransfer.files]
       this.files.forEach(file => {
         let form = new FormData()
@@ -29,11 +32,12 @@ export default {
           }
         }).then(response => {
           console.log(response.data)
+          this.$emit("emitUp", STATUS.UPLOADED)
         }).catch(error => {
           console.log(error)
+          this.$emit("emitUp", STATUS.UPLOAD)
         })
       })
-      this.isEnter = false;
     }
   }
 }

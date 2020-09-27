@@ -2,17 +2,52 @@
   <div id="app">
     <h1 class="title">Upload your image</h1>
     <h2 class="description">File should be Jpeg,Png,...</h2>
-    <ImageUploader/>
+    <Upload v-show="upload" @emitUp="changeStatus"/>
+    <Uploading v-show="uploading"/>
+    <Uploaded v-show="uploaded"/>
   </div>
 </template>
 
 <script>
-import ImageUploader from './components/ImageUploader.vue'
+import Upload from './components/Upload.vue'
+import Uploading from './components/Uploading.vue'
+import Uploaded from './components/Uploaded.vue';
+import STATUS from './constants/upload_status';
 
 export default {
   name: 'App',
   components: {
-    ImageUploader
+    Upload,
+    Uploading,
+    Uploaded
+  },
+  data() {
+    return {
+      upload: true,
+      uploading: false,
+      uploaded: false
+    }
+  },
+  methods: {
+    changeStatus(payload) {
+      if (payload === STATUS.UPLOAD) {
+        this.upload = true
+        this.uploading = false
+        this.uploaded = false
+      }
+
+      if (payload === STATUS.UPLOADING) {
+        this.upload = false
+        this.uploading = true
+        this.uploaded = false
+      }
+
+      if (payload === STATUS.UPLOADED) {
+        this.upload = false
+        this.uploading = false
+        this.uploaded = true
+      }
+    }
   }
 }
 </script>
