@@ -14,6 +14,11 @@ func main() {
 		})
 	})
 
+	r.GET("/image/:fileName", func(c *gin.Context) {
+		fileName := c.Param("fileName")
+		c.File("./image/" + fileName)
+	})
+
 	r.POST("/upload", func(c *gin.Context) {
 		img, err := imageupload.Process(c.Request, "file")
 
@@ -31,7 +36,7 @@ func main() {
 
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.JSON(200, gin.H{
-			"image_url": "http://localhost/image/",
+			"image_url": "http://localhost:3000/image/" + img.Filename,
 		})
 	})
 
