@@ -2,7 +2,18 @@ version: "3"
 services:
   server:
     build: ./server
+    container_name: server
     volumes:
       - ./server/image:/go/src/image
     ports:
-      - 8080:3000
+      - 8000:3000
+
+  client:
+    build: ./client
+    container_name: client
+    ports:
+      - 8080:8080
+
+networks:
+  default:
+    name: network

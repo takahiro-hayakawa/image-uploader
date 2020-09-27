@@ -25,7 +25,7 @@ export default {
         form.append('file', file)
         axios({
           method: 'post',
-          url :'http://localhost:3000/upload',
+          url :'http://localhost:8000/upload',
           data : form,
           header :{
             'Content-Type': 'multipart/form-data',
