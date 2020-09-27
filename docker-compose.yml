@@ -2,5 +2,7 @@ version: "3"
 services:
   server:
     build: ./server
+    volumes:
+      - ./server/image:/go/src/image
     ports:
       - 8080:3000
