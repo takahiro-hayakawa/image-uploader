@@ -8,6 +8,12 @@ import (
 func main() {
 	r := gin.Default()
 
+	r.GET("/", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"msg": "success",
+		})
+	})
+
 	r.POST("/upload", func(c *gin.Context) {
 		img, err := imageupload.Process(c.Request, "file")
 
